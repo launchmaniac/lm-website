@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Badge } from '@/components/ui/badge.jsx'
 import { ArrowRight, Star, Users, TrendingUp, Zap, Shield, Target, CheckCircle, ExternalLink, Mail, Phone, Calendar } from 'lucide-react'
-import launchManiacLogo from './assets/LM_600x600px.png'
+import launchManiacLogo from './assets/LMHorizontalYW_Transparent.png'
 import './App.css'
 
 function App() {
@@ -91,9 +91,8 @@ function App() {
       <nav className="border-b border-border/40 backdrop-blur-sm sticky top-0 z-50 bg-background/80">
         <div className="container-custom">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-3">
-              <img src={launchManiacLogo} alt="Launch Maniac" className="w-10 h-10" />
-              <span className="text-xl font-bold text-foreground">Launch Maniac</span>
+            <div className="flex items-center">
+              <img src={launchManiacLogo} alt="Launch Maniac" className="h-8" />
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <a href="#products" className="text-muted-foreground hover:text-foreground transition-colors">Products</a>
@@ -305,9 +304,8 @@ function App() {
       <footer className="border-t border-border py-12">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <img src={launchManiacLogo} alt="Launch Maniac" className="w-8 h-8" />
-              <span className="text-lg font-bold">Launch Maniac</span>
+            <div className="flex items-center mb-4 md:mb-0">
+              <img src={launchManiacLogo} alt="Launch Maniac" className="h-6" />
             </div>
             <div className="text-muted-foreground text-center md:text-right">
               <p>&copy; 2025 Launch Maniac. All rights reserved.</p>
