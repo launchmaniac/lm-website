@@ -43,27 +43,24 @@
 }
 
 :root {
-  --radius: 1.5rem;
+  --radius: 2rem;
   
-  /* LCARS Color Palette */
+  /* LCARS Monitor Template Colors */
   --lcars-bg: #000000;
-  --lcars-blue-gray: #9999cc;
-  --lcars-lightblue: #9999ff;
-  --lcars-lilac: #cc99cc;
-  --lcars-pink: #cc6699;
-  --lcars-light-pink: #ff99cc;
-  --lcars-russet: #cc6666;
-  --lcars-apricot: #ff9966;
-  --lcars-beige: #ffcc99;
-  --lcars-orange: #ff9900;
-  --lcars-gold: #ffcc00;
-  
-  /* Launch Maniac Brand Adaptation */
-  --brand-primary: #9999ff;      /* LCARS Lightblue */
-  --brand-secondary: #cc99cc;    /* LCARS Lilac */
-  --brand-accent: #ff9900;       /* LCARS Orange */
-  --brand-warning: #cc6666;      /* LCARS Russet */
-  --brand-success: #99cc99;      /* LCARS Green variant */
+  --lcars-orange: #FF9900;
+  --lcars-orange-light: #FFAA33;
+  --lcars-orange-dark: #CC7700;
+  --lcars-purple: #CC99FF;
+  --lcars-purple-light: #DDAAFF;
+  --lcars-purple-dark: #9966CC;
+  --lcars-blue: #6699FF;
+  --lcars-blue-light: #99CCFF;
+  --lcars-blue-dark: #3366CC;
+  --lcars-pink: #FF99CC;
+  --lcars-pink-light: #FFAADD;
+  --lcars-pink-dark: #CC6699;
+  --lcars-display-bg: #001133;
+  --lcars-display-grid: #003366;
   
   /* Theme Variables */
   --background: var(--lcars-bg);
@@ -72,23 +69,18 @@
   --card-foreground: #ffffff;
   --popover: var(--lcars-bg);
   --popover-foreground: #ffffff;
-  --primary: var(--brand-primary);
+  --primary: var(--lcars-orange);
   --primary-foreground: #000000;
-  --secondary: var(--brand-secondary);
+  --secondary: var(--lcars-purple);
   --secondary-foreground: #000000;
-  --muted: var(--lcars-blue-gray);
+  --muted: var(--lcars-blue);
   --muted-foreground: #ffffff;
-  --accent: var(--brand-accent);
+  --accent: var(--lcars-pink);
   --accent-foreground: #000000;
-  --destructive: var(--brand-warning);
-  --border: var(--lcars-blue-gray);
+  --destructive: #FF3366;
+  --border: var(--lcars-orange);
   --input: var(--lcars-bg);
-  --ring: var(--brand-accent);
-  --chart-1: var(--brand-primary);
-  --chart-2: var(--brand-secondary);
-  --chart-3: var(--brand-accent);
-  --chart-4: var(--brand-success);
-  --chart-5: var(--brand-warning);
+  --ring: var(--lcars-orange);
 }
 
 @layer base {
@@ -99,8 +91,9 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Orbitron', 'Courier New', monospace;
-    background: radial-gradient(ellipse at center, #111111 0%, #000000 100%);
+    background: #000000;
     min-height: 100vh;
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -110,66 +103,156 @@
     letter-spacing: 0.1em;
     line-height: 1.2;
   }
-  
-  p, span, div {
-    font-family: 'Orbitron', monospace;
-    letter-spacing: 0.05em;
-  }
 }
 
 @layer components {
-  /* LCARS Panel Styles */
-  .lcars-panel {
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
-    border-radius: 2rem;
-    border: 2px solid var(--brand-accent);
-    position: relative;
-    overflow: hidden;
+  /* LCARS Monitor Layout */
+  .lcars-monitor {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: 120px 1fr 60px;
+    grid-template-areas: 
+      "header-left header-center header-right"
+      "sidebar-left main-display sidebar-right"
+      "footer-left footer-center footer-right";
+    height: 100vh;
+    gap: 8px;
+    padding: 8px;
   }
   
-  .lcars-panel::before {
+  .lcars-header-left {
+    grid-area: header-left;
+    background: var(--lcars-purple);
+    border-radius: 2rem 0 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  
+  .lcars-header-center {
+    grid-area: header-center;
+    background: linear-gradient(90deg, var(--lcars-orange) 0%, var(--lcars-pink) 50%, var(--lcars-blue) 100%);
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    font-weight: 900;
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+  }
+  
+  .lcars-header-right {
+    grid-area: header-right;
+    background: var(--lcars-orange);
+    border-radius: 0 2rem 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    font-weight: 700;
+  }
+  
+  .lcars-sidebar-left {
+    grid-area: sidebar-left;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .lcars-sidebar-right {
+    grid-area: sidebar-right;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .lcars-main-display {
+    grid-area: main-display;
+    background: var(--lcars-display-bg);
+    border-radius: 1rem;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+  }
+  
+  .lcars-main-display::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: var(--brand-accent);
-    border-radius: 2rem 2rem 0 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(var(--lcars-display-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--lcars-display-grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+    pointer-events: none;
   }
   
-  .lcars-panel-orange {
-    background: linear-gradient(135deg, var(--brand-accent) 0%, var(--lcars-gold) 100%);
-    color: #000000;
+  .lcars-footer-left {
+    grid-area: footer-left;
+    background: var(--lcars-orange);
+    border-radius: 2rem 0 0 2rem;
   }
   
-  .lcars-panel-lilac {
-    background: linear-gradient(135deg, var(--brand-secondary) 0%, var(--lcars-pink) 100%);
-    color: #000000;
+  .lcars-footer-center {
+    grid-area: footer-center;
+    background: var(--lcars-purple);
+    border-radius: 0;
   }
   
-  .lcars-panel-blue {
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--lcars-blue-gray) 100%);
-    color: #000000;
+  .lcars-footer-right {
+    grid-area: footer-right;
+    background: var(--lcars-pink);
+    border-radius: 0 2rem 2rem 0;
   }
   
-  /* LCARS Button Styles */
-  .lcars-button {
-    background: var(--brand-accent);
-    color: #000000;
-    border: none;
+  /* LCARS Panel Components */
+  .lcars-panel {
     border-radius: 2rem;
-    padding: 1rem 2rem;
-    font-family: 'Orbitron', monospace;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    text-align: center;
     transition: all 0.3s ease;
+    cursor: pointer;
     position: relative;
     overflow: hidden;
   }
   
-  .lcars-button::before {
+  .lcars-panel-orange {
+    background: var(--lcars-orange);
+    color: #000000;
+  }
+  
+  .lcars-panel-purple {
+    background: var(--lcars-purple);
+    color: #000000;
+  }
+  
+  .lcars-panel-blue {
+    background: var(--lcars-blue);
+    color: #000000;
+  }
+  
+  .lcars-panel-pink {
+    background: var(--lcars-pink);
+    color: #000000;
+  }
+  
+  .lcars-panel:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px currentColor;
+  }
+  
+  .lcars-panel::before {
     content: '';
     position: absolute;
     top: 0;
@@ -180,139 +263,134 @@
     transition: left 0.5s ease;
   }
   
-  .lcars-button:hover::before {
+  .lcars-panel:hover::before {
     left: 100%;
   }
   
+  /* LCARS Data Display */
+  .lcars-data-stream {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.8rem;
+    color: var(--lcars-orange);
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+  }
+  
+  .lcars-tech-readout {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+  }
+  
+  .lcars-system-code {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    color: var(--lcars-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+  
+  /* LCARS Content Areas */
+  .lcars-content-section {
+    background: rgba(0, 17, 51, 0.8);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 1rem 0;
+    border: 2px solid var(--lcars-orange);
+    position: relative;
+  }
+  
+  .lcars-content-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    height: 4px;
+    background: var(--lcars-orange);
+    border-radius: 1rem 1rem 0 0;
+  }
+  
+  /* LCARS Navigation */
+  .lcars-nav-item {
+    background: var(--lcars-purple);
+    color: #000000;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.8rem 1.5rem;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0.2rem 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .lcars-nav-item:hover {
+    background: var(--lcars-purple-light);
+    transform: translateX(5px);
+  }
+  
+  .lcars-nav-item.active {
+    background: var(--lcars-orange);
+  }
+  
+  /* LCARS Buttons */
+  .lcars-button {
+    background: var(--lcars-orange);
+    color: #000000;
+    border: none;
+    border-radius: 2rem;
+    padding: 1rem 2rem;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
   .lcars-button:hover {
-    background: var(--lcars-gold);
+    background: var(--lcars-orange-light);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(255, 153, 0, 0.4);
   }
   
-  .lcars-button-primary {
-    background: var(--brand-primary);
-    color: #000000;
-  }
-  
-  .lcars-button-primary:hover {
-    background: var(--lcars-lightblue);
-  }
-  
   .lcars-button-secondary {
-    background: var(--brand-secondary);
-    color: #000000;
+    background: var(--lcars-purple);
   }
   
   .lcars-button-secondary:hover {
-    background: var(--lcars-pink);
-  }
-  
-  /* LCARS Navigation */
-  .lcars-nav {
-    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-accent) 100%);
-    border-radius: 0 0 2rem 2rem;
-    position: relative;
-  }
-  
-  .lcars-nav::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--brand-accent);
-    border-radius: 0 0 2rem 2rem;
-  }
-  
-  /* LCARS Data Display */
-  .lcars-data {
-    font-family: 'Orbitron', monospace;
-    font-weight: 400;
-    color: var(--brand-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.9rem;
-  }
-  
-  .lcars-data-large {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--brand-primary);
+    background: var(--lcars-purple-light);
   }
   
   /* LCARS Status Indicators */
-  .lcars-status {
-    display: inline-block;
+  .lcars-status-indicator {
     width: 12px;
     height: 12px;
     border-radius: 50%;
+    display: inline-block;
     margin-right: 0.5rem;
     animation: pulse 2s infinite;
   }
   
   .lcars-status-active {
-    background: var(--brand-success);
+    background: #00FF00;
   }
   
   .lcars-status-warning {
-    background: var(--brand-warning);
+    background: #FFFF00;
   }
   
-  .lcars-status-info {
-    background: var(--brand-primary);
-  }
-  
-  /* LCARS Grid Layout */
-  .lcars-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
-  
-  /* LCARS Corner Elements */
-  .lcars-corner {
-    position: relative;
-  }
-  
-  .lcars-corner::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    width: 30px;
-    height: 30px;
-    border-top: 3px solid var(--brand-accent);
-    border-left: 3px solid var(--brand-accent);
-    border-radius: 10px 0 0 0;
-  }
-  
-  .lcars-corner::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    right: -10px;
-    width: 30px;
-    height: 30px;
-    border-bottom: 3px solid var(--brand-accent);
-    border-right: 3px solid var(--brand-accent);
-    border-radius: 0 0 10px 0;
-  }
-  
-  /* LCARS Text Effects */
-  .lcars-text-glow {
-    text-shadow: 0 0 10px var(--brand-accent), 0 0 20px var(--brand-accent), 0 0 30px var(--brand-accent);
-  }
-  
-  .lcars-text-primary {
-    color: var(--brand-primary);
-    text-shadow: 0 0 5px var(--brand-primary);
-  }
-  
-  .lcars-text-accent {
-    color: var(--brand-accent);
-    text-shadow: 0 0 5px var(--brand-accent);
+  .lcars-status-error {
+    background: #FF0000;
   }
   
   /* LCARS Animations */
@@ -321,109 +399,64 @@
     50% { opacity: 0.5; }
   }
   
-  @keyframes slideIn {
-    from { transform: translateX(-100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+  @keyframes dataScroll {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
   }
   
-  @keyframes fadeInUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+  .lcars-data-scroll {
+    animation: dataScroll 10s linear infinite;
   }
   
-  .lcars-slide-in {
-    animation: slideIn 0.8s ease-out;
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .lcars-monitor {
+      grid-template-columns: 150px 1fr 150px;
+      grid-template-rows: 80px 1fr 40px;
+    }
+    
+    .lcars-header-center {
+      font-size: 1.5rem;
+    }
   }
   
-  .lcars-fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
-  }
-  
-  /* LCARS Hero Section */
-  .lcars-hero {
-    background: radial-gradient(ellipse at center, #1a1a2e 0%, #000000 100%);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .lcars-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      linear-gradient(45deg, transparent 30%, rgba(153, 153, 255, 0.1) 50%, transparent 70%),
-      linear-gradient(-45deg, transparent 30%, rgba(255, 153, 0, 0.1) 50%, transparent 70%);
-    animation: scan 4s linear infinite;
-  }
-  
-  @keyframes scan {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-  
-  /* LCARS Card Styles */
-  .lcars-card {
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid var(--brand-primary);
-    border-radius: 2rem;
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-  
-  .lcars-card:hover {
-    border-color: var(--brand-accent);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 153, 0, 0.3);
-  }
-  
-  .lcars-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
-    border-radius: 2rem 2rem 0 0;
-  }
-  
-  /* LCARS Footer */
-  .lcars-footer {
-    background: linear-gradient(180deg, transparent 0%, rgba(153, 153, 255, 0.1) 100%);
-    border-top: 2px solid var(--brand-primary);
-    position: relative;
-  }
-  
-  .lcars-footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--brand-accent);
-  }
-}
-
-@layer utilities {
-  .container-lcars {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-  
-  .section-lcars {
-    @apply py-16 lg:py-24;
-  }
-  
-  .stardate {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.8rem;
-    color: var(--brand-accent);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  @media (max-width: 768px) {
+    .lcars-monitor {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto 1fr auto;
+      grid-template-areas: 
+        "header-center"
+        "sidebar-left"
+        "main-display"
+        "sidebar-right";
+      height: auto;
+      min-height: 100vh;
+    }
+    
+    .lcars-header-left,
+    .lcars-footer-left,
+    .lcars-footer-center,
+    .lcars-footer-right,
+    .lcars-header-right {
+      display: none;
+    }
+    
+    .lcars-header-center {
+      border-radius: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .lcars-sidebar-left,
+    .lcars-sidebar-right {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    
+    .lcars-panel {
+      flex: 1;
+      min-width: 120px;
+    }
   }
 }
