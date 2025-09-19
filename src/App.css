@@ -1,0 +1,176 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  
+  /* Launch Maniac Brand Colors */
+  --brand-primary-700: #6D28D9; /* Violet */
+  --brand-primary-600: #7C3AED;
+  --brand-secondary-700: #1D4ED8; /* Azure */
+  --brand-accent-amber: #FCB02C;
+  --brand-accent-cyan: #06B6D4;
+  
+  /* Status Colors */
+  --status-success-700: #047857;
+  --status-warning-700: #B45309;
+  --status-error-700: #B91C1C;
+  
+  /* Neutrals (Dark Mode) */
+  --bg-page: #0B0F1A;     /* Graphite-950 */
+  --bg-app: #0F1115;      /* Graphite-900 */
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8; /* Slate-400 */
+  --border-subtle: #334155;  /* Slate-700 */
+  
+  /* Default theme variables */
+  --background: var(--bg-page);
+  --foreground: var(--text-primary);
+  --card: var(--bg-app);
+  --card-foreground: var(--text-primary);
+  --popover: var(--bg-app);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--brand-primary-700);
+  --primary-foreground: var(--text-primary);
+  --secondary: var(--brand-secondary-700);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--bg-app);
+  --muted-foreground: var(--text-secondary);
+  --accent: var(--brand-accent-amber);
+  --accent-foreground: var(--bg-app);
+  --destructive: var(--status-error-700);
+  --border: var(--border-subtle);
+  --input: var(--bg-app);
+  --ring: var(--brand-accent-cyan);
+  --chart-1: var(--brand-primary-600);
+  --chart-2: var(--brand-secondary-700);
+  --chart-3: var(--brand-accent-cyan);
+  --chart-4: var(--status-success-700);
+  --chart-5: var(--status-warning-700);
+  --sidebar: var(--bg-app);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--brand-primary-700);
+  --sidebar-primary-foreground: var(--text-primary);
+  --sidebar-accent: var(--bg-app);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-subtle);
+  --sidebar-ring: var(--brand-accent-cyan);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  
+  p {
+    line-height: 1.55;
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(45deg, #5B21B6, #06B6D4);
+  }
+  
+  .btn-primary {
+    @apply bg-[var(--brand-primary-700)] hover:bg-[var(--brand-primary-600)] text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 ease-out;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+  }
+  
+  .btn-secondary {
+    @apply bg-[var(--brand-secondary-700)] hover:bg-[#1E40AF] text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 ease-out;
+  }
+  
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+  }
+  
+  .card-hover {
+    @apply transition-all duration-200 ease-out;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(45deg, var(--brand-primary-600), var(--brand-accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .accent-amber {
+    color: var(--brand-accent-amber);
+  }
+  
+  .bg-amber {
+    background-color: var(--brand-accent-amber);
+    color: var(--bg-app);
+  }
+}
+
+@layer utilities {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-16 lg:py-24;
+  }
+}
